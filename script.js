@@ -1,20 +1,21 @@
+// spara cookie, hämta btn
 let darkMode = localStorage.getItem("darkMode");
 const darkModeToggle = document.querySelector("#dark-mode");
-
+//  addera darkmode, slå på
 const enableDarkMode = () => {
     document.body.classList.add("darkmode");
     localStorage.setItem("darkMode", 'enabled');
 };
-
+// slå av / remove
 const disableDarkMode = () => {
     document.body.classList.remove("darkmode");
     localStorage.setItem("darkMode", 'disabled');
 };
-
+// ha samma current 
 if (darkMode === "enabled") {
     enableDarkMode();
 };
-
+// evenlistener till btn, om inte på - slå på / om på - slå av
 darkModeToggle.addEventListener("click", () => {
     darkMode = localStorage.getItem("darkMode");
     if (darkMode !== "enabled") {
@@ -25,6 +26,7 @@ darkModeToggle.addEventListener("click", () => {
 
 });
 
+// array med frågor och val
 const Data = [
     {
         question: "Is it true that rabbits have four legs?",
@@ -88,40 +90,50 @@ const Data = [
     },
     
   ];
+
   const grabId = (idName) => {
     const ElementId = document.getElementById(idName);
     if (ElementId) 
     return ElementId;
   };
+
+  // id av varje label 
   const option1 = grabId("option1");
   const option2 = grabId("option2");
+  // hämta knapparna 
   let nextBtn = grabId("btn-next");
   let prevBtn = grabId("btn-prev");
   const quiz = grabId("quiz");
+  // h3 som ska manipuleras 
   const question = document.querySelector("h3");
   const answears = document.querySelectorAll(".answear");
-  
+  // initiera varibler
   let currentQuiz = 0;
   let score = 0;
   
+  // kollar svar / val
   loadQuiz();
   function loadQuiz() {
     unCheckAnswear();
+  // val
     let nextOption = Data[currentQuiz];
     question.innerText = nextOption.question;
     option1.innerText = nextOption.a;
     option2.innerText = nextOption.b;
+  // klick funk
     nextBtn.addEventListener("click", nextQuestion);
     prevBtn.addEventListener("click", PreviousQuestion);
   };
+  // svar och få värde
   function nextQuestion() {
     const answear = getValue();
+    // om rätt svar = ++ värde
     if (answear) {
       if (answear === Data[currentQuiz].correct) {
         score++;
       }
       currentQuiz++;
-      
+      // print poäng + färg
       if (currentQuiz < Data.length) {
         loadQuiz();
       } else 
@@ -138,6 +150,7 @@ const Data = [
     
     }
   };
+  // -------------------
   function PreviousQuestion() {
     if (currentQuiz.valueOf() === 0) {
       alert("");
@@ -146,7 +159,8 @@ const Data = [
       loadQuiz();
     }
   };
-  
+
+  // få värde, för varje svar ++ till värde och få tbx värde
   function getValue() {
     let value = undefined;
     answears.forEach((answear) => {
@@ -157,6 +171,7 @@ const Data = [
     return value;
   };
   
+  // --------------------
   function unCheckAnswear() {
     answears.forEach((answear) => {
       answear.checked = false;
