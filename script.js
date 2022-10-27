@@ -65,7 +65,7 @@ const Data = [
         correct: "a",
     },
     {
-        question: "Was donald trump a president?",
+        question: "Ipsum lorem?",
         a: "Yes",
         b: "No",
         correct: "a",
@@ -104,17 +104,17 @@ const Data = [
   let nextBtn = grabId("btn-next");
   let prevBtn = grabId("btn-prev");
   const quiz = grabId("quiz");
-  // h3 som ska manipuleras 
+  // h3 questions 
   const question = document.querySelector("h3");
-  const answears = document.querySelectorAll(".answear");
-  // initiera varibler
+  const answers = document.querySelectorAll(".answer");
+  // initiera
   let currentQuiz = 0;
   let score = 0;
   
   // kollar svar / val
   loadQuiz();
   function loadQuiz() {
-    unCheckAnswear();
+    unCheckAnswer();
   // val
     let nextOption = Data[currentQuiz];
     question.innerText = nextOption.question;
@@ -126,10 +126,10 @@ const Data = [
   };
   // svar och få värde
   function nextQuestion() {
-    const answear = getValue();
-    // om rätt svar = ++ värde
-    if (answear) {
-      if (answear === Data[currentQuiz].correct) {
+    const answer = getValue();
+    // om svar = ++ värde
+    if (answer) {
+      if (answer === Data[currentQuiz].correct) {
         score++;
       }
       currentQuiz++;
@@ -160,20 +160,20 @@ const Data = [
     }
   };
 
-  // få värde, för varje svar ++ till värde och få tbx värde
+  // få värde, för varje svar + till värde och få tbx värde
   function getValue() {
     let value = undefined;
-    answears.forEach((answear) => {
-      if (answear.checked) {
-        value = answear.id;
+    answers.forEach((answer) => {
+      if (answer.checked) {
+        value = answer.id;
       };
     });
     return value;
   };
   
   // --------------------
-  function unCheckAnswear() {
-    answears.forEach((answear) => {
-      answear.checked = false;
+  function unCheckAnswer() {
+    answers.forEach((answer) => {
+      answer.checked = false;
     });
   };
